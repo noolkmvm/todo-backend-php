@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 
 /**
@@ -41,6 +42,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    protected $hidden = ['pivot'];
+
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
@@ -49,5 +52,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function lists(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            TodoList::class,
+            'users_lists',
+            'user_id',
+            'list_id',
+        );
     }
 }
