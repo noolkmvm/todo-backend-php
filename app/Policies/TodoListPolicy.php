@@ -11,6 +11,16 @@ class TodoListPolicy
 {
     use HandlesAuthorization;
 
+    public function index(User $user, TodoList $todoList): bool
+    {
+        return $this->authorize($user, $todoList);
+    }
+
+    public function store(User $user, TodoList $todoList): bool
+    {
+        return $this->authorize($user, $todoList);
+    }
+
     public function show(User $user, TodoList $todoList): bool
     {
         return $this->authorize($user, $todoList);

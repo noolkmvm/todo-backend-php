@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoListController;
+use App\Http\Controllers\ListItemController;
 use App\Http\Controllers\Auth\AuthController;
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
@@ -13,5 +14,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::apiResource('todo-lists', TodoListController::class);
+    Route::apiResource('lists', TodoListController::class);
+    Route::apiResource('lists.items', ListItemController::class);
 });
