@@ -50,7 +50,11 @@ class AuthControllerTest extends TestCase
         $this->actingAs($this->getUser())
             ->json('GET', 'api/auth/user')
             ->assertStatus(Response::HTTP_OK)
-            ->assertJsonStructure(['success']);
+            ->assertJsonStructure([
+                'id',
+                'username',
+                'password',
+            ]);
     }
 
     public function testLogout()

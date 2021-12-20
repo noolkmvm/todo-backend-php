@@ -22,6 +22,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->faker = Factory::create();
         Artisan::call('migrate:refresh');
+        User::factory()->create()->first();
     }
 
     /**
@@ -37,6 +38,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function getUser(): User
     {
-        return User::whereId(1)->getModel();
+        return User::all()->random(1)->first();
     }
 }
